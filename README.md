@@ -1,6 +1,6 @@
 Welcome to My GitHub Profile 👋
 
-Hello, I'm Asonja, a passionate front-end developer with a keen interest in creating engaging and user-friendly web experiences. 👨‍💻
+Hello, I'm Asonja, a passionate Python Developer, Rest API and Full stack Web developer with a keen interest in creating engaging and user-friendly web applications. 👨‍💻
 
 ## About Me
 
@@ -11,6 +11,7 @@ Hello, I'm Asonja, a passionate front-end developer with a keen interest in crea
 ## Skills
 
 - HTML5, CSS3, JavaScript
+- Python
 - React.js, Vue.js
 - Responsive Web Design
 - Version Control (Git)
