@@ -21,7 +21,7 @@ Hello, I'm Asonja, a passionate Python Developer, Rest API and Full stack Web de
 ## Get in Touch
 
 - 📧 Email: asonjataiwo@gmail.com
-- 🔗 Website: https://asonja.netlify.app
+- 🔗 Website: https://asonja.com.ng
 - 🐦 Twitter: (https://twitter.com/lo_veyours)
 ## Let's Collaborate!
 
