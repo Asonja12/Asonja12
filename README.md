@@ -2,42 +2,23 @@
 
 **Backend Engineer** · Node.js, TypeScript and PostgreSQL · Lagos, Nigeria
 
-I build backend systems where correctness is not negotiable. Most of my work sits around money movement, concurrency and failure handling: the parts of a system that behave fine in development and fail quietly in production.
+I build backend systems where correctness is not negotiable. My work sits around money movement, concurrency and failure handling: the parts of a system that behave fine in development and fail quietly in production.
 
-I hold a First Class B.Eng in Mechanical Engineering and an M.Eng in Manufacturing and Automation from Nanjing University of Science and Technology, with three peer reviewed publications in modelling and optimisation. That background is why I tend to reach for invariants and proofs before I reach for a framework.
+First Class B.Eng in Mechanical Engineering and an M.Eng in Manufacturing and Automation, with three peer reviewed publications in modelling and optimisation. That background is why I reach for invariants and proofs before I reach for a framework.
 
 ---
 
-## Featured work
+## What I do well
 
-### [Payment Ledger](https://github.com/Asonja12/payment-ledger) · a financial transaction engine
+**Correctness under concurrency.** Preventing the races that only appear under real load: overdrafts from read then compare, duplicated money movement from retried requests, lost updates between simultaneous writers. I solve these with row level locking, database enforced invariants and deterministic lock ordering rather than application side checks that hold only on the paths someone remembered to route through.
 
-A wallet and payments backend built the way money actually has to be handled. Double entry accounting, idempotent money movement, webhook driven reconciliation, and concurrency control enforced by PostgreSQL rather than by application code.
+**Designing for failure, not the happy path.** Idempotency keys with leases that survive a process dying mid request. Retry with exponential backoff, dead lettering and operator replay. Reconciliation for the event that never arrives. Compensating actions where a rollback is impossible because the money already moved.
 
-Most wallet implementations are a `balance` column and an `UPDATE`. That design fails quietly: two concurrent withdrawals both see sufficient funds, a redelivered webhook credits twice, a crashed process leaves money in neither account. This project is a working answer to what it takes to build the version that does not do that.
+**Data integrity at the database layer.** Append only history, constraint and lifecycle triggers, deferred constraint checking, state machines enforced in SQL, and independent drift detection that recomputes derived state from source. An invariant enforced only in application code is a convention, not a guarantee.
 
-- Financial invariants enforced as database triggers and constraints, so they hold for every writer including a `psql` session at 3am
-- Concurrent overdraft prevented by a row lock acquired inside a `BEFORE INSERT` trigger, with no read then compare anywhere on the spending path
-- Lease based idempotency that survives a process dying mid request, without ever reclaiming a completed key
-- Webhook pipeline that distinguishes an event already finished from one merely seen, because providers redeliver precisely when processing failed
-- Pull based reconciliation that heals missing webhooks and deliberately refuses to auto resolve amount mismatches
-- 159 tests against real PostgreSQL semantics, no database mocking, including concurrency races, crashed handlers and deliberate data corruption
+**API and service design.** REST APIs with explicit transaction boundaries, structured machine readable error codes, keyset pagination, OpenAPI documentation, and authentication and authorisation that fails closed by default.
 
-`NestJS` `TypeScript` `PostgreSQL` `PL/pgSQL` `Docker` `Vitest`
-
-### [Bojamiley CRM](https://github.com/Asonja12/BojamileyCRM) · fashion house operations platform
-
-A multi tenant CRM in production use by a Lagos luxury fashion house, unifying client records, bespoke measurements, order pipelines, payment tracking and inventory.
-
-- JWT authentication with an admin approval gate, so new registrations stay locked until authorised
-- Role based access control separating the internal admin workspace from a client portal scoped to a single customer
-- MongoDB schemas linking measurement profiles to repeat orders, removing re-measurement for returning clients
-
-`React` `Node.js` `Express` `MongoDB` `JWT`
-
-### Currently building
-
-A **payout orchestration service in .NET**, solving the limitation my ledger states honestly in its own README: its background workers are in-process timers rather than a queue runtime. Transactional outbox, consumer side inbox, saga compensation and poison message handling, with ASP.NET Core, MassTransit, RabbitMQ and Testcontainers.
+**Testing that proves the claim.** Suites run against real database semantics rather than mocks, covering concurrency races, duplicate delivery, crashed handlers and deliberate corruption. If a guarantee is not attacked by a test, I do not claim it.
 
 ---
 
@@ -45,21 +26,25 @@ A **payout orchestration service in .NET**, solving the limitation my ledger sta
 
 **Languages** TypeScript, JavaScript, C#, Python, SQL
 
-**Backend** Node.js, NestJS, Express, REST API design, JWT and OAuth2, role based access control, background jobs, third party integrations
+**Backend** Node.js, NestJS, Express, REST API design, JWT and OAuth2, role based access control, background jobs, webhook processing, third party integrations
 
-**Databases** PostgreSQL, MongoDB, MySQL, PL/pgSQL, triggers and constraints, transaction isolation, row level locking, schema design, indexing
+**Databases** PostgreSQL, MongoDB, MySQL, PL/pgSQL, triggers and constraints, transaction isolation, row level locking, schema design, indexing, query optimisation
 
-**Practice** Double entry ledger design, idempotency, webhook processing, reconciliation, concurrency control, automated testing with Vitest and Jest, OpenAPI
+**Practice** Double entry ledger design, idempotency, reconciliation, concurrency control, automated testing with Vitest and Jest, OpenAPI and Swagger, code review
 
-**Infrastructure** Docker, CI/CD, GitHub Actions, AWS, Azure, Netlify, Vercel
+**Infrastructure** Docker, Docker Compose, CI/CD, GitHub Actions, AWS, Azure, Netlify, Vercel
 
 **Frontend** React, responsive and mobile first design, Tailwind CSS
 
+**Working with AI** Structured and spec driven prompting as part of the delivery workflow, used for scaffolding, refactoring, review and documentation, with design decisions and shipped code staying mine.
+
 ---
 
-## Also
+## Beyond code
 
-Co-Founder and COO at **Dronavid**, a drone logistics venture targeting last mile delivery in emerging African markets. I own operational strategy, product definition and technical feasibility, and I built and deployed the company platform.
+Co-Founder and COO at **Dronavid**, a drone logistics venture targeting last mile delivery in emerging African markets. I own operational strategy, product definition and technical feasibility, which keeps me close to why a system is being built and not only how.
+
+Currently building a payout orchestration service in .NET: transactional outbox, consumer side inbox, saga compensation and poison message handling.
 
 ---
 
@@ -67,4 +52,4 @@ Co-Founder and COO at **Dronavid**, a drone logistics venture targeting last mil
 
 [asonjataiwo@gmail.com](mailto:asonjataiwo@gmail.com) · [LinkedIn](https://www.linkedin.com/in/asonja) · [asonja.com.ng](https://www.asonja.com.ng)
 
-Open to backend engineering roles, remote or Lagos based.
+Open to backend engineering roles, remote or Lagos based. Pinned repositories below.
